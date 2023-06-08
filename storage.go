@@ -49,3 +49,21 @@ func (st *Storage[T]) Search(key string) []T {
 
 	return dfs(cursor)
 }
+
+// dfs = Depth-First Search
+// Depth-First search is an algorithm for traversing or searching tree or graph data structures.
+func dfs[T any](node *Node[T]) []T {
+
+	// if node.Value has values, it means that we've reached a leaf
+	if len(node.Value) != 0 {
+		return node.Value
+	}
+
+	var items []T
+
+	for _, n := range node.Children {
+		items = append(items, dfs(n)...)
+	}
+
+	return items
+}
